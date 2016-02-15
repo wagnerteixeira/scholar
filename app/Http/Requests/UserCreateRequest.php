@@ -29,4 +29,14 @@ class UserCreateRequest extends Request
             'password' => 'required'
         ];
     }
+
+    public function messages()
+{
+    return [
+        'name.required' => 'Digite o nome',
+        'email.required'  => 'Digite o email',
+        'email.unique'  => 'Email deve ser unico',
+        'password.required'  => 'Digite o password',
+    ];
+}
 }

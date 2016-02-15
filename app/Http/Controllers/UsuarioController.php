@@ -8,8 +8,17 @@ use Illuminate\Http\Request;
 use Cinema\Http\Requests\UserCreateRequest;
 use Cinema\Http\Requests\UserUpdateRequest;
 use Cinema\User;
+use Illuminate\Routing\Route;
 
 class UsuarioController extends Controller {
+
+	public function __construct(){
+		$this->beforeFilter('@find', ['only' => ['edit', 'update', 'destroy']]);
+	}
+
+	public function find(Route $route){
+		$this->user = User::find($route->getParameter('usuario'));
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -18,7 +27,7 @@ class UsuarioController extends Controller {
 	 */
 	public function index()
 	{
-		$users = User::All();
+		$users = User::paginate(2);
 		return view("usuario.index", compact('users'));
 	}
 
@@ -37,13 +46,9 @@ class UsuarioController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(UserCreateRequest $request)
+	public function store(UserUpdateRequest $request)
 	{
-		User::create([
-			'name'=> $request['name'],
-			'email'=> $request['email'],
-			'password'=> $request['password'],
-			]);
+		User::create($request->all());
 		Session::flash('message', 'Usuario incluido com sucesso!');
 		return redirect('/usuario');
 	}
@@ -67,8 +72,7 @@ class UsuarioController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$user = User::find($id);
-		return view('usuario.edit', ['user'=>$user]);
+		return view('usuario.edit', ['user'=>$this->user]);
 	}
 
 	/**
@@ -79,9 +83,8 @@ class UsuarioController extends Controller {
 	 */
 	public function update($id, UserUpdateRequest $request)
 	{
-		$user = User::find($id);
-		$user->fill($request->all());
-		$user->save();
+		$this->user->fill($request->all());
+		$this->user->save();
 		Session::flash('message', 'Usuario alterado com sucesso!');
 		return redirect('/usuario');
 	}
@@ -94,7 +97,7 @@ class UsuarioController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		User::destroy($id);
+		$this->user->delete();
 		Session::flash('message', 'Usuario excluido com sucesso!');
 		return redirect('/usuario');
 	}
