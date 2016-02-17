@@ -1,28 +1,28 @@
 @extends('layouts.principal')
 	@section('content')
+	@include('alerts.errors')
+	@include('alerts.request')
 				<div class="header">
 			<div class="top-header">
 				<div class="logo">
 					<a href="index.html"><img src="images/logo.png" alt="" /></a>
 					<p>Movie Theater</p>
 				</div>
-				<div class="search">
-					<form>
-						<input type="text" value="Search.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search..';}"/>
-						<input type="submit" value="">
-					</form>
-				</div>
 				<div class="clearfix"></div>
 			</div>
 			<div class="header-info">
 				<h1>BIG HERO 6</h1>
-				<p class="age"><a href="#">All Age</a> Don Hall, Chris Williams</p>
-				<p class="review">Rating	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;  8,5/10</p>
-				<p class="review reviewgo">Genre	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp; Animation, Action, Comedy</p>
-				<p class="review">Release &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp; 7 November 2014</p>
-				<p class="special">The special bond that develops between plus-sized inflatable robot Baymax, and prodigy Hiro Hamada, who team up with a group of friends to form a band of high-tech heroes.</p>
-				<a class="video" href="#"><i class="video1"></i>WATCH TRAILER</a>
-				<a class="book" href="#"><i class="book1"></i>BOOK TICKET</a>
+				{!!Form::open(['route'=>'login.store', 'method'=>'POST'])!!}
+					<div class="form-group">
+						{!!Form::label('lemail','Email:')!!}	
+						{!!Form::email('email',null,['class'=>'form-control', 'placeholder'=>'Informe o email'])!!}
+					</div>
+					<div class="form-group">
+						{!!Form::label('senha','Senha:')!!}	
+						{!!Form::password('password',['class'=>'form-control', 'placeholder'=>'Informe a senha'])!!}
+					</div>
+					{!!Form::submit('Iniciar',['class'=>'btn btn-primary'])!!}
+				{!!Form::close()!!}
 			</div>
 		</div>
 		<div class="review-slider">
@@ -34,33 +34,6 @@
 			<li><img src="images/r5.jpg" alt=""/></li>
 			<li><img src="images/r6.jpg" alt=""/></li>
 		</ul>
-			<script type="text/javascript">
-		$(window).load(function() {
 			
-		  $("#flexiselDemo1").flexisel({
-				visibleItems: 6,
-				animationSpeed: 1000,
-				autoPlay: true,
-				autoPlaySpeed: 3000,    		
-				pauseOnHover: false,
-				enableResponsiveBreakpoints: true,
-				responsiveBreakpoints: { 
-					portrait: { 
-						changePoint:480,
-						visibleItems: 2
-					}, 
-					landscape: { 
-						changePoint:640,
-						visibleItems: 3
-					},
-					tablet: { 
-						changePoint:768,
-						visibleItems: 3
-					}
-				}
-			});
-			});
-		</script>
-		<script type="text/javascript" src="js/jquery.flexisel.js"></script>	
-		</div>		
+		</div>
 	@endsection	

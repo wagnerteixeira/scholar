@@ -5,7 +5,7 @@ namespace Cinema\Http\Requests;
 use Cinema\Http\Requests\Request;
 use Cinema\User;
 
-class UserUpdateRequest extends Request
+class UserUpdateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -59,13 +59,4 @@ class UserUpdateRequest extends Request
         return $segments[sizeof($segments) - $position_from_end];
     }
 
-    public function messages()
-    {
-        return [
-            'name.required' => 'É preciso informar o nome!',
-            'email.required'  => 'É preciso informa o email!',
-            'email.unique'  => 'Email já cadastrado!',
-            'password.required'  => 'É preciso informar a senha!',
-        ];
-    }
 }

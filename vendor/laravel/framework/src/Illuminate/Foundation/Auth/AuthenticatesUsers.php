@@ -5,6 +5,7 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Cinema\Http\Requests\LoginRequest;
 
 trait AuthenticatesUsers
 {
@@ -30,7 +31,7 @@ trait AuthenticatesUsers
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postLogin(Request $request)
+    public function postLogin(LoginRequest $request)
     {
         $this->validate($request, [
             $this->loginUsername() => 'required', 'password' => 'required',
@@ -61,7 +62,7 @@ trait AuthenticatesUsers
         return redirect($this->loginPath())
             ->withInput($request->only($this->loginUsername(), 'remember'))
             ->withErrors([
-                $this->loginUsername() => $this->getFailedLoginMessage(),
+                $this->loginUsername() => 'Usuário ou senha incorreto',
             ]);
     }
 

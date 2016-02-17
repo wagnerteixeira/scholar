@@ -30,8 +30,8 @@ class AuthController extends Controller {
 	public function __construct(Guard $auth, Registrar $registrar)
 	{
 		$this->auth = $auth;
-		$this->registrar = $registrar;
-
+		$this->redirectPath = '/admin';
+        
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
