@@ -11,6 +11,7 @@
     {!! Html::style('css/metisMenu.min.css') !!}
     {!! Html::style('css/sb-admin-2.css') !!}
     {!! Html::style('css/font-awesome.min.css') !!}
+    {!! Html::style('css/ajax.css') !!}
 </head>
 
 <body>
@@ -44,16 +45,18 @@
                     </ul>
                 </li>
             </ul>
-
+            
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li>
+                                                <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Usuario<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                @if(Auth::user()->admin)
                                 <li>
                                     <a href="{!!URL::to('/usuario/create')!!}"><i class='fa fa-plus fa-fw'></i> Criar</a>
                                 </li>
+                                @endif
                                 <li>
                                     <a href="{!!URL::to('/usuario')!!}"><i class='fa fa-list-ol fa-fw'></i> Usuarios</a>
                                 </li>
@@ -62,11 +65,13 @@
                         <li>
                             <a href="#"><i class="fa fa-film fa-fw"></i> Pelicula<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                @if(Auth::user()->admin)
                                 <li>
-                                    <a href="#"><i class='fa fa-plus fa-fw'></i> Agregar</a>
+                                    <a href="{!!URL::to('/filme/create')!!}"><i class='fa fa-plus fa-fw'></i> Agregar</a>
                                 </li>
+                                @endif
                                 <li>
-                                    <a href="#"><i class='fa fa-list-ol fa-fw'></i> Peliculas</a>
+                                    <a href="{!!URL::to('/filme')!!}"><i class='fa fa-list-ol fa-fw'></i> Peliculas</a>
                                 </li>
                             </ul>
                         </li>
@@ -74,11 +79,13 @@
                         <li>
                             <a href="#"><i class="fa fa-child fa-fw"></i> Genero<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                @if(Auth::user()->admin)
                                 <li>
-                                    <a href="#"><i class='fa fa-plus fa-fw'></i> Agregar</a>
+                                    <a href="{!!URL::to('/genero/create')!!}"><i class='fa fa-plus fa-fw'></i> Agregar</a>
                                 </li>
+                                @endif
                                 <li>
-                                    <a href="#"><i class='fa fa-list-ol fa-fw'></i> Generos</a>
+                                    <a href="{!!URL::to('/genero')!!}"><i class='fa fa-list-ol fa-fw'></i> Generos</a>
                                 </li>
                             </ul>
                         </li>
@@ -100,7 +107,8 @@
     {!! Html::script('js/bootstrap.min.js') !!}
     {!! Html::script('js/metisMenu.min.js') !!}
     {!! Html::script('js/sb-admin-2.js') !!}
-
+    @section('scripts')
+    @show
 </body>
 
 </html>

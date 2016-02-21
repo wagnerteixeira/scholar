@@ -34,7 +34,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->user()->id != 1)
+        if (!$this->auth->user()->admin)
         {
             Session::flash('message-error', 'Usuário sem privilégios suficiente');
             return redirect()->to('admin');

@@ -18,6 +18,8 @@ Route::get('admin','FrontController@admin');
 Route::resource('usuario', 'UsuarioController');
 Route::resource('login', 'LoginController');
 Route::get('logout','LoginController@logout');
+Route::resource('genero', 'GeneroController');
+Route::get('listarGeneros', 'GeneroController@listar');
 
 Route::get('prova', function (){
 	return "Hello Word";
