@@ -90,7 +90,12 @@ class GeneroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $genero = Genre::find($id);
+        $genero->fill($request->all());
+        $genero->save();
+        return response()->json(
+            ["message"=>"OK"]
+        );
     }
 
     /**

@@ -63,15 +63,15 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-film fa-fw"></i> Pelicula<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-film fa-fw"></i> Filmes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 @if(Auth::user()->admin)
                                 <li>
-                                    <a href="{!!URL::to('/filme/create')!!}"><i class='fa fa-plus fa-fw'></i> Agregar</a>
+                                    <a href="{!!URL::to('/filme/create')!!}"><i class='fa fa-plus fa-fw'></i> Criar</a>
                                 </li>
                                 @endif
                                 <li>
-                                    <a href="{!!URL::to('/filme')!!}"><i class='fa fa-list-ol fa-fw'></i> Peliculas</a>
+                                    <a href="{!!URL::to('/filme')!!}"><i class='fa fa-list-ol fa-fw'></i> Filmes</a>
                                 </li>
                             </ul>
                         </li>
@@ -81,7 +81,7 @@
                             <ul class="nav nav-second-level">
                                 @if(Auth::user()->admin)
                                 <li>
-                                    <a href="{!!URL::to('/genero/create')!!}"><i class='fa fa-plus fa-fw'></i> Agregar</a>
+                                    <a href="{!!URL::to('/genero/create')!!}"><i class='fa fa-plus fa-fw'></i> Criar</a>
                                 </li>
                                 @endif
                                 <li>
