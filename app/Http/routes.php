@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'FrontController@index');
+Route::get('/', function () {
+    return redirect('/admin');
+});
 Route::get('contato', 'FrontController@contato');
 Route::get('reviews', 'FrontController@reviews');
 Route::get('admin','FrontController@admin');

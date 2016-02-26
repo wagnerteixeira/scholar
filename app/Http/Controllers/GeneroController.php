@@ -7,10 +7,22 @@ use Illuminate\Http\Request;
 use Cinema\Http\Requests;
 use Cinema\Http\Controllers\Controller;
 use Cinema\Genre;
+use Illuminate\Routing\Route;
+use Cinema\Http\Requests\GeneroRequest;
 
 class GeneroController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('admin', ['only' => ['create', 'edit']]); 
+        $this->beforeFilter('@find', ['only' => ['edit', 'update', 'destroy']]);
+    }
     
+    public function find(Route $route){
+        $this->genero = Genre::find($route->getParameter('genero'));
+    }
+
     /**
      * return a listing of Genero.
      *
@@ -28,9 +40,13 @@ class GeneroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('genero.index');
+        $generos = Genre::paginate(3);
+        if ($request->ajax())
+            return response()->json(view('genero.generosContent', compact('generos'))->render());
+        else
+            return view("genero.index", compact('generos'));
     }
 
     /**
@@ -38,9 +54,12 @@ class GeneroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-       return view('genero.create');
+        if ($request->ajax())   
+            return response()->json(view('genero.createContent')->render());
+        else
+            return view('genero.create');
     }
 
     /**
@@ -49,7 +68,7 @@ class GeneroController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GeneroRequest $request)
     {
         if($request->ajax()){
             Genre::create($request->all());
@@ -78,7 +97,9 @@ class GeneroController extends Controller
      */
     public function edit($id)
     {
-        //
+        return response()->json(
+            $this->genero->toArray()
+        );
     }
 
     /**
@@ -88,11 +109,11 @@ class GeneroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GeneroRequest $request, $id)
     {
-        $genero = Genre::find($id);
-        $genero->fill($request->all());
-        $genero->save();
+        
+        $this->genero->fill($request->all());
+        $this->genero->save();
         return response()->json(
             ["message"=>"OK"]
         );
@@ -106,6 +127,9 @@ class GeneroController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->genero->delete();
+        return response()->json(
+            ["message"=>"OK"]
+        );
     }
 }

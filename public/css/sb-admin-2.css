@@ -8,18 +8,18 @@ body {
     background-color: #f8f8f8;
 }
 
-#wrapper {
+#content {
     width: 100%;
 }
 
-#page-wrapper {
+#page-content {
     padding: 0 15px;
     min-height: 568px;
     background-color: #fff;
 }
 
 @media(min-width:768px) {
-    #page-wrapper {
+    #page-content {
         position: inherit;
         margin: 0 0 0 250px;
         padding: 0 30px;
@@ -224,7 +224,7 @@ body {
     height: 100%;
 }
 
-.dataTables_wrapper {
+.dataTables_content {
     position: relative;
     clear: both;
 }

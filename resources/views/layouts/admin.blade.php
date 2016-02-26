@@ -81,11 +81,11 @@
                             <ul class="nav nav-second-level">
                                 @if(Auth::user()->admin)
                                 <li>
-                                    <a href="{!!URL::to('/genero/create')!!}"><i class='fa fa-plus fa-fw'></i> Criar</a>
+                                    <a href="#" id="criarGenero"><i class='fa fa-plus fa-fw'></i> Criar</a>
                                 </li>
                                 @endif
                                 <li>
-                                    <a href="{!!URL::to('/genero')!!}"><i class='fa fa-list-ol fa-fw'></i> Generos</a>
+                                    <a href="#" id="generos"><i class='fa fa-list-ol fa-fw'></i> Generos</a>
                                 </li>
                             </ul>
                         </li>
@@ -96,7 +96,7 @@
 
      </nav>
 
-        <div id="page-wrapper">
+        <div id="page-content">
             @yield('content')
         </div>
 
@@ -107,8 +107,7 @@
     {!! Html::script('js/bootstrap.min.js') !!}
     {!! Html::script('js/metisMenu.min.js') !!}
     {!! Html::script('js/sb-admin-2.js') !!}
-    @section('scripts')
-    @show
+    {!! Html::script('js/scripts.js') !!}
 </body>
 
 </html>

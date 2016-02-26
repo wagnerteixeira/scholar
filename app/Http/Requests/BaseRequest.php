@@ -14,6 +14,9 @@ class BaseRequest extends Request
             'email.unique'  => 'Email já cadastrado!',
             'email.email'  => 'Email inválido!',
             'password.required'  => 'É preciso informar a senha!',
+            'genre.required' => 'É preciso informar o genero!',
+            'genre.min' => 'O genero precisa ter pelo menos :min letras!',
+            'required' => 'É preciso informar o :attribute!',
         ];
     }
 }
