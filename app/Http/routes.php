@@ -46,7 +46,7 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('controlador', 'ProvaController@index');
+Route::get('controlador/{num}', 'ProvaController@index');
 
 Route::get('nome2/{nome}', 'ProvaController@nome');
 

@@ -1,10 +1,14 @@
-<?php namespace Cinema\Http\Controllers;
+<?php 
+
+namespace Cinema\Http\Controllers;
+use Illuminate\Http\Request;
+use Log;
 
 class ProvaController extends Controller {
 
 	public function __construct()
 	{
-		$this->$soma = 0;
+		
 	}
 
 	/**
@@ -12,8 +16,15 @@ class ProvaController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($num, Request $request)
 	{
+		Log::info("APP_DEBUG: ".env('APP_DEBUG'));
+		if (env('APP_DEBUG') == true){
+			$segments =$request->segments();
+			Log::info("seg: ".serialize($request->segments()));
+			Log::info("tam: ".sizeof($segments));
+			Log::info('end: '.$segments[sizeof($segments) - 1]);
+		}
 		return "Prova Controller";
 	}
 

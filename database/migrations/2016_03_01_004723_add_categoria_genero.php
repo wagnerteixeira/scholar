@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAdminToUsers extends Migration
+class AddCategoriaGenero extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,9 @@ class AddAdminToUsers extends Migration
      */
     public function up()
     {
-        
+        Schema::table('genres', function (Blueprint $table) {
+            $table->string('categoria');
+        }); 
     }
 
     /**
@@ -22,6 +24,8 @@ class AddAdminToUsers extends Migration
      */
     public function down()
     {
-        
+        Schema::table('genres', function ($table) {
+             $table->dropColumn('categoria');
+        });
     }
 }

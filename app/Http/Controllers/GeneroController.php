@@ -4,6 +4,8 @@ namespace Cinema\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Log;
+
 use Cinema\Http\Requests;
 use Cinema\Http\Controllers\Controller;
 use Cinema\Genre;
@@ -20,7 +22,12 @@ class GeneroController extends Controller
     }
     
     public function find(Route $route){
+        if (env("APP_DEBUG"))
+            log::info("params: ".serialize($route->parameters()));
+
         $this->genero = Genre::find($route->getParameter('genero'));
+        if (env("APP_DEBUG"))
+            log::info("generoObject: ".$this->genero);
     }
 
     /**
@@ -42,7 +49,7 @@ class GeneroController extends Controller
      */
     public function index(Request $request)
     {
-        $generos = Genre::paginate(3);
+        $generos = Genre::paginate(7);
         if ($request->ajax())
             return response()->json(view('genero.generosContent', compact('generos'))->render());
         else
@@ -111,9 +118,12 @@ class GeneroController extends Controller
      */
     public function update(GeneroRequest $request, $id)
     {
-        
+        if(env('APP_DEBUG'))
+            log::info("genero antes: ".$this->genero);
         $this->genero->fill($request->all());
         $this->genero->save();
+        if(env('APP_DEBUG'))
+            log::info("genero depois: ".$this->genero);
         return response()->json(
             ["message"=>"OK"]
         );

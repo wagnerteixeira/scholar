@@ -41,6 +41,7 @@ class LoginController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        return Redirect::to('admin');
         if (Auth::attempt(['email'=> $request['email'], 'password' => $request['password']])){
             return Redirect::to('admin');
         }

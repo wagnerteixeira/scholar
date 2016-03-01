@@ -7,7 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddAdminToUsers' => $baseDir . '/database/migrations/2016_02_17_192135_add_admin_to_users.php',
+    'AddCategoriaGenero' => $baseDir . '/database/migrations/2016_03_01_004723_add_categoria_genero.php',
     'AddDeletedToUsersTable' => $baseDir . '/database/migrations/2016_02_04_231140_add_deleted_to_users_table.php',
+    'CreateActiveColumnGenre' => $baseDir . '/database/migrations/2016_02_29_133817_create_active_column_genre.php',
     'CreateGenresTable' => $baseDir . '/database/migrations/2016_01_28_230507_create_genres_table.php',
     'CreateMoviesTable' => $baseDir . '/database/migrations/2016_01_28_230523_create_movies_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',

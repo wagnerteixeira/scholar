@@ -1,7 +1,7 @@
-$(document).ready(function()
+	$(document).ready(function()
 	{
-		setAtualizarClick();
-		setRegistrarClick();
+		setAtualizarGeneroClick();
+		setRegistrarGeneroClick();
 	}
 );
 //carrega os generos a partir do click no menu
@@ -13,7 +13,7 @@ function carregarGeneros($page, $sync){
 	var $route = "/genero";
 	if ($.isNumeric($page) && $page > 1)
 		$route = $route + "?page=" + $page;	
-	$("body").css("cursor", "progress");
+	//$("body").css("cursor", "progress");
 	if($sync){
 		$.ajax({
     		async: false,
@@ -28,8 +28,8 @@ function carregarGeneros($page, $sync){
 					carregarGeneros($page - 1, true);
 					return;
 				}
-				setAtualizarClick(); 
-				$("body").css("cursor", "default");
+				setAtualizarGeneroClick(); 
+				//$("body").css("cursor", "default");
      		}
 		});
 	}
@@ -38,7 +38,7 @@ function carregarGeneros($page, $sync){
 		{
 			$("#page-content").empty();
 			$("#page-content").html($(response));
-			setAtualizarClick();
+			setAtualizarGeneroClick();
 			$("body").css("cursor", "default");
 		});
 	}
@@ -52,7 +52,7 @@ $("#criarGenero").click(function(){
 		{
 			$("#page-content").empty();
 			$("#page-content").html($(response));
-			setRegistrarClick();
+			setRegistrarGeneroClick();
 		});
 	}
 );
@@ -65,12 +65,12 @@ $(document).on('click', '.pagination a', function(e){
 		{
 			$("#page-content").empty();
 			$("#page-content").html($(response));
-			setAtualizarClick();
+			setAtualizarGeneroClick();
 		});
 	}
 );
 
-function Excluir(btn)
+function ExcluirGenero(btn)
 {
 	
 	var route = "/genero/" + btn.id;
@@ -100,34 +100,44 @@ function Excluir(btn)
 		});
 }
 
-function Mostrar(btn){
+function MostrarGenero(btn){
 	if($("#msg-error").length > 0){
 		$("#msg-error").remove();
 	}
 	
 	console.log(btn.id);
-	console.log($(btn).attr('value'));
-	$("#genre").val($(btn).attr('value'));
-	$("#idGenero").val(btn.id);
+	var route = "/genero/" + btn.id + "/edit";
+	$.get(route, function(response)
+	{
+		console.log(response);
+		$("#idGenero").val(btn.id);
+		$("#genre").val(response.genre);
+		$("#categoria").val(response.categoria);
+		if(response.active == 1)
+			$('input[name=active]').prop('checked', true);
+		else
+			$('input[name=active]').prop('checked', false);
+	});	
+	
 }
 
-function setAtualizarClick(){
-	$("#atualizar").click(
+function setAtualizarGeneroClick(){
+	$("#atualizarGenero").click(
 		function()
 		{
 			var value = $("#idGenero").val();
-			var dado = $("#genre").val();
+			var dado = getGeneroFromModal();
 			var page = $("li.active > span").text();
 			console.log(dado);
 			var route = "/genero/" + value +"";
 			var token = $("input[name='_token']").val();
-			$("body").css("cursor", "progress");
+			//$("body").css("cursor", "progress");
 			$.ajax({
 				url: route,
 				headers: {'X-CSRF-TOKEN': token},
 				type: 'PUT',
 				dataType: 'json',
-				data:{genre: dado},
+				data:dado,
 				success:function(){
 					carregarGeneros(page, true);					
 					if($("#msg-success").length == 0){
@@ -141,34 +151,55 @@ function setAtualizarClick(){
 						$("#msg-success").fadeIn();
 					}					
 				},
-				error:function(msg){
-					var divError = "<div id='msg-error' class='alert alert-danger alert-dismissible' role='alert'> " +
-									   "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> " +
-									   "<strong>Opa! </strong>Houve algum problema.<br><br> " +   
-								   "<ul> ";
-					var errors = msg.responseJSON.genre;
-					$(errors).each(function(key, value){
-									divError = divError + "<li>" + value + "</li>";
-								  }				
-					);
-					
-					divError = divError +"</ul></div>";			
-					if($("#msg-error").length > 0){
-						$("#msg-error").remove();
-					}
-
-					$(".modal-body").prepend(divError);
-					$("body").css("cursor", "default");
-				},
+				error: processaErroGenero,
 			});
 		}
 	);
 }
-function setRegistrarClick(){
-	$("#registrar").click(
+
+function processaErroGenero(msg){
+	var divError = "<div id='msg-error' class='alert alert-danger alert-dismissible' role='alert'> " +
+					   "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> " +
+					   "<strong>Opa! </strong>Houve algum problema.<br><br> " +   
+				   "<ul> ";
+	var $errors = [];
+	console.log(msg.responseJSON);
+	console.log("genre: "+ msg.responseJSON.hasOwnProperty('genre'));
+	if(msg.responseJSON.hasOwnProperty('genre'))
+		$errors = $.merge($errors, msg.responseJSON.genre);
+	console.log("cat: "+ msg.responseJSON.hasOwnProperty('categoria'));
+	if(msg.responseJSON.hasOwnProperty('categoria'))
+		$errors = $.merge($errors, msg.responseJSON.categoria);
+
+	console.log($errors);
+
+	$.each($errors, function(key, value){
+					divError = divError + "<li>" + value + "</li>";
+				  }				
+	);
+	
+	divError = divError +"</ul></div>";			
+	if($("#msg-error").length > 0){
+		$("#msg-error").remove();
+	}
+
+	if ($(".modal-body").length > 0)
+		$(".modal-body").prepend(divError);
+	else
+		$("#page-content").prepend(divError);
+	
+	$("body").css("cursor", "default");
+}
+
+function getGeneroFromModal(){
+	return {genre: $("#genre").val(), active: $('input[name=active]').is(":checked") ? 1 : 0, categoria: $("#categoria").val()};
+}
+
+function setRegistrarGeneroClick(){
+	$("#registrarGenero").click(
 		function()
 		{		
-			var dado = $("#genre").val();
+			var dado = getGeneroFromModal();
 			var route = "/genero";
 			var token = $("input[name='_token']").val();
 			console.log(token);
@@ -179,7 +210,7 @@ function setRegistrarClick(){
 				headers: {'X-CSRF-TOKEN': token},
 				type: 'POST',
 				dataType: 'json',
-				data:{genre: dado},
+				data:dado,
 				success:function(){
 					console.log("sucesso!");
 					if($("#msg-error").length > 0){
@@ -200,25 +231,7 @@ function setRegistrarClick(){
 					//carregarGeneros();
 
 				},
-				error:function(msg){
-					var divError = "<div id='msg-error' class='alert alert-danger alert-dismissible' role='alert'> " +
-									   "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> " +
-									   "<strong>Opa! </strong>Houve algum problema.<br><br> " +   
-								   "<ul> ";
-					var errors = msg.responseJSON.genre;
-					$(errors).each(function(key, value){
-									divError = divError + "<li>" + value + "</li>";
-								}				
-					);
-					
-					divError = divError +"</ul></div>";			
-					if($("#msg-error").length > 0){
-						$("#msg-error").remove();
-					}
-
-					$("#page-content").prepend(divError);
-					$("body").css("cursor", "default");
-				},
+				error: processaErroGenero,
 			});
 			
 		}

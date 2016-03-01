@@ -4,6 +4,7 @@ namespace Cinema\Http\Requests;
 
 use Cinema\Http\Requests\Request;
 
+use Log;
 class GeneroRequest extends BaseRequest
 {
     /**
@@ -23,8 +24,10 @@ class GeneroRequest extends BaseRequest
      */
     public function rules()
     {
+        log::info("request: ".$this);
         return [
             'genre' => 'required|min:3',            
+            'categoria' => 'required|min:3',
         ];
     }
 }
