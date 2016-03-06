@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">      
         {!!Form::token()!!}
-      	<input type="hidden" id="idGenero">
+      	<input type="hidden" id="idUsuario">
         @include('usuario.forms.user')
       </div>
       <div class="modal-footer">

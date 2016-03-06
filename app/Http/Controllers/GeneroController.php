@@ -106,7 +106,7 @@ class GeneroController extends Controller
     {
         return response()->json(
             $this->genero->toArray()
-        );
+        );   
     }
 
     /**

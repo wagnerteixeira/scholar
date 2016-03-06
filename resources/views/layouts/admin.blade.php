@@ -54,11 +54,11 @@
                             <ul class="nav nav-second-level">
                                 @if(Auth::user()->admin)
                                 <li>
-                                    <a href="{!!URL::to('/usuario/create')!!}"><i class='fa fa-plus fa-fw'></i> Criar</a>
+                                    <a href="#" id="criarUsuario"><i class='fa fa-plus fa-fw'></i> Criar</a>
                                 </li>
                                 @endif
                                 <li>
-                                    <a href="{!!URL::to('/usuario')!!}"><i class='fa fa-list-ol fa-fw'></i> Usuarios</a>
+                                    <a href="#" id="usuarios"><i class='fa fa-list-ol fa-fw'></i> Usuarios</a>
                                 </li>
                             </ul>
                         </li>

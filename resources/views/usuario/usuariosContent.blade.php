@@ -1,4 +1,4 @@
-<div id="divUsuarios">
+<div id="divUsuario">
 @include('usuario.modal')	
 <table class="table">
 	<thead>

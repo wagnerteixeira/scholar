@@ -479,7 +479,6 @@ function setRegistrarUsuarioClick(){
 					$("#name").val("");
 					$("#email").val("");
 					$('input[name=admin]').prop('checked', false);
-					$("#password").val("");
 					$("body").css("cursor", "default");
 					//carregarusuarios();
 

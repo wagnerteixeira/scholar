@@ -1,3 +1,4 @@
+<div id="divGenero">
 @include('genero.modal')	
 <table class="table">
 	<thead>
@@ -27,3 +28,4 @@
 	</tbody>
 </table>
 {!!$generos->Render()!!}
+</div>
