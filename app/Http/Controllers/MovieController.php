@@ -4,6 +4,10 @@ use Cinema\Http\Requests;
 use Cinema\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Cinema\Movie;
+use Cinema\Genre;
+//use Carbon\Carbon;
+use Log;
 
 class MovieController extends Controller {
 
@@ -14,7 +18,9 @@ class MovieController extends Controller {
 	 */
 	public function index()
 	{
-		return "Estou no index";
+		//return Carbon::now();
+		return (new \DateTime('now'))->format('Y_m_d_H_i_s');
+		//return "Estou no index";
 	}
 
 	/**
@@ -24,7 +30,9 @@ class MovieController extends Controller {
 	 */
 	public function create()
 	{
-		return "Estou no create";
+		$genres =  ['0' => ''] + Genre::lists('genre', 'id')->toArray();
+		log::info($genres);
+		return view('filme.create', compact('genres'));
 	}
 
 	/**
@@ -32,9 +40,10 @@ class MovieController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		
+		Movie::create($request->all());
+		return "feito";
 	}
 
 	/**

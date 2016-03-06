@@ -15,12 +15,17 @@ class CreateMoviesTable extends Migration {
 		Schema::create('movies', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
-			$table->string('cast');
-			$table->string('direction');
-			$table->string('duration');
-			$table->integer('genre_id')->unsigned();
-			$table->foreign('genre_id')->references('id')->on('genres');
+            $table->string('name');
+            /*
+            | En el video tutorial olvide agregar el Path de las imagenes xD
+            */
+            $table->string('path');
+            $table->string('cast');
+            $table->string('direction');
+            $table->string('duration');
+            $table->timestamps();
+            $table->integer('genre_id')->unsigned();
+            $table->foreign('genre_id')->references('id')->on('genres');
 			//$table->timestamps();
 		});
 	}

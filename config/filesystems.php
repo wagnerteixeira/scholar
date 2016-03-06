@@ -45,7 +45,8 @@ return [
 
 		'local' => [
 			'driver' => 'local',
-			'root'   => storage_path().'/app',
+			'root'   => public_path('movies'),
+			//'root'   => storage_path().'/app',
 		],
 
 		's3' => [

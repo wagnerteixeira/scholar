@@ -12,13 +12,17 @@
     {!! Html::style('css/sb-admin-2.css') !!}
     {!! Html::style('css/font-awesome.min.css') !!}
     {!! Html::style('css/ajax.css') !!}
+
+    {!! Html::script('js/jquery.min.js') !!}
+    {!! Html::script('js/bootstrap.min.js') !!}
+    {!! Html::script('js/metisMenu.min.js') !!}
+    {!! Html::script('js/sb-admin-2.js') !!}
+    {!! Html::script('js/scripts.js') !!}
 </head>
 
 <body>
 
-    <div id="wrapper">
-
-        
+    <div id="wrapper">        
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -101,13 +105,6 @@
         </div>
 
     </div>
-    
-
-    {!! Html::script('js/jquery.min.js') !!}
-    {!! Html::script('js/bootstrap.min.js') !!}
-    {!! Html::script('js/metisMenu.min.js') !!}
-    {!! Html::script('js/sb-admin-2.js') !!}
-    {!! Html::script('js/scripts.js') !!}
 </body>
 
 </html>
