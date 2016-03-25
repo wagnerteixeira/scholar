@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration {
 			$table->timestamps();
 		});
 
-		if (env('APP_DEBUG') == true){
+		/*if (env('APP_DEBUG') == true){
 		// Insert some stuff
 		    DB::table('users')->insert(
 		        array(
@@ -63,7 +63,7 @@ class CreateUsersTable extends Migration {
 		            'admin' => true,
 		        )
 		    );
-		}
+		}*/
 
 	}
 

@@ -12,12 +12,6 @@
     {!! Html::style('css/sb-admin-2.css') !!}
     {!! Html::style('css/font-awesome.min.css') !!}
     {!! Html::style('css/ajax.css') !!}
-
-    {!! Html::script('js/jquery.min.js') !!}
-    {!! Html::script('js/bootstrap.min.js') !!}
-    {!! Html::script('js/metisMenu.min.js') !!}
-    {!! Html::script('js/sb-admin-2.js') !!}
-    {!! Html::script('js/scripts.js') !!}
 </head>
 
 <body>
@@ -106,5 +100,10 @@
 
     </div>
 </body>
+    {!! Html::script('js/jquery.min.js') !!}
+    {!! Html::script('js/bootstrap.min.js') !!}
+    {!! Html::script('js/metisMenu.min.js') !!}
+    {!! Html::script('js/sb-admin-2.js') !!}
+    {!! Html::script('js/scripts.js') !!}
 
 </html>

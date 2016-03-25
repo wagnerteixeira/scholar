@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 trait ResetsPasswords
 {
     use RedirectsUsers;
-
+    private $subject = 'Link para redefinição de senha';
     /**
      * Display the form to request a password reset link.
      *

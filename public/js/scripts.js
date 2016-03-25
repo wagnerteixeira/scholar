@@ -23,7 +23,7 @@ $("#generos").click(
 function carregarGeneros($page, $sync){
 	var $route = "/genero";
 	if ($.isNumeric($page) && $page > 1)
-		$route = $route + "?page=" + $page;	
+		$route = $route + "?page=" + $page;
 	//$("body").css("cursor", "progress");
 	if($sync){
 		$.ajax({
@@ -39,7 +39,7 @@ function carregarGeneros($page, $sync){
 					carregarGeneros($page - 1, true);
 					return;
 				}
-				setAtualizarGeneroClick(); 
+				setAtualizarGeneroClick();
 				//$("body").css("cursor", "default");
      		}
 		});
@@ -56,7 +56,7 @@ function carregarGeneros($page, $sync){
 
 }
 //carrega o html para criação de um genero
-$("#criarGenero").click(function(){		
+$("#criarGenero").click(function(){
 		var token = $("input[name='_token']").val();
 		//alert(token);
 		$.get("/genero/create", function(response)
@@ -92,7 +92,7 @@ $(document).on('click', '.pagination a', function(e){
 
 function ExcluirGenero(btn)
 {
-	
+
 	var route = "/genero/" + btn.id;
 	var token = $("input[name='_token']").val();
 	var page = $("li.active > span").text();
@@ -105,7 +105,7 @@ function ExcluirGenero(btn)
 			success:function(){
 				carregarGeneros(page, true);
 				if($("#msg-success").length == 0){
-					$("#page-content").prepend("<div id=\"msg-success\" class=\"alert alert-success alert-dismissible\" role=\"alert\"> " + 
+					$("#page-content").prepend("<div id=\"msg-success\" class=\"alert alert-success alert-dismissible\" role=\"alert\"> " +
   									"<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>" +
 									"<strong id='text-success'>Genero excluído com sucesso!</strong></div>");
 					console.log("add msg-sucess");
@@ -124,7 +124,7 @@ function MostrarGenero(btn){
 	if($("#msg-error").length > 0){
 		$("#msg-error").remove();
 	}
-	
+
 	console.log(btn.id);
 	var route = "/genero/" + btn.id + "/edit";
 	$.get(route, function(response)
@@ -137,8 +137,8 @@ function MostrarGenero(btn){
 			$('input[name=active]').prop('checked', true);
 		else
 			$('input[name=active]').prop('checked', false);
-	});	
-	
+	});
+
 }
 
 function setAtualizarGeneroClick(){
@@ -163,9 +163,9 @@ function setAtualizarGeneroClick(){
 				dataType: 'json',
 				data:dado,
 				success:function(){
-					carregarGeneros(page, true);					
+					carregarGeneros(page, true);
 					if($("#msg-success").length == 0){
-						$("#page-content").prepend("<div id=\"msg-success\" class=\"alert alert-success alert-dismissible\" role=\"alert\"> " + 
+						$("#page-content").prepend("<div id=\"msg-success\" class=\"alert alert-success alert-dismissible\" role=\"alert\"> " +
 	  									"<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>" +
 										"<strong id='text-success'>Genero atualizado com sucesso!</strong></div>");
 					}
@@ -173,7 +173,7 @@ function setAtualizarGeneroClick(){
 						$("#msg-success").fadeOut();
 						$("#text-success").text("Genero atualizado com sucesso!");
 						$("#msg-success").fadeIn();
-					}					
+					}
 				},
 				error: processaErroGenero,
 			});
@@ -184,7 +184,7 @@ function setAtualizarGeneroClick(){
 function processaErroGenero(msg){
 	var divError = "<div id='msg-error' class='alert alert-danger alert-dismissible' role='alert'> " +
 					   "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> " +
-					   "<strong>Opa! </strong>Houve algum problema.<br><br> " +   
+					   "<strong>Opa! </strong>Houve algum problema.<br><br> " +
 				   "<ul> ";
 	var $errors = [];
 	console.log(msg.responseJSON);
@@ -199,10 +199,10 @@ function processaErroGenero(msg){
 
 	$.each($errors, function(key, value){
 					divError = divError + "<li>" + value + "</li>";
-				  }				
+				  }
 	);
-	
-	divError = divError +"</ul></div>";			
+
+	divError = divError +"</ul></div>";
 	if($("#msg-error").length > 0){
 		$("#msg-error").remove();
 	}
@@ -211,7 +211,7 @@ function processaErroGenero(msg){
 		$(".modal-body").prepend(divError);
 	else
 		$("#page-content").prepend(divError);
-	
+
 	$("body").css("cursor", "default");
 }
 
@@ -222,7 +222,7 @@ function getGeneroFromModal(){
 function setRegistrarGeneroClick(){
 	$("#registrarGenero").click(
 		function()
-		{		
+		{
 			var dado = getGeneroFromModal();
 			var route = "/genero";
 			var token = $("input[name='_token']").val();
@@ -241,7 +241,7 @@ function setRegistrarGeneroClick(){
 						$("#msg-error").remove();
 					}
 					if($("#msg-success").length == 0){
-						$("#page-content").prepend("<div id=\"msg-success\" class=\"alert alert-success alert-dismissible\" role=\"alert\"> " + 
+						$("#page-content").prepend("<div id=\"msg-success\" class=\"alert alert-success alert-dismissible\" role=\"alert\"> " +
 	  									"<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>" +
 										"<strong id='text-success'>Genero criado com sucesso!</strong></div>");
 					}
@@ -259,7 +259,7 @@ function setRegistrarGeneroClick(){
 				},
 				error: processaErroGenero,
 			});
-			
+
 		}
 	);
 }
@@ -272,7 +272,7 @@ $("#usuarios").click(
 function carregarusuarios($page, $sync){
 	var $route = "/usuario";
 	if ($.isNumeric($page) && $page > 1)
-		$route = $route + "?page=" + $page;	
+		$route = $route + "?page=" + $page;
 	//$("body").css("cursor", "progress");
 	if($sync){
 		$.ajax({
@@ -288,7 +288,7 @@ function carregarusuarios($page, $sync){
 					carregarusuarios($page - 1, true);
 					return;
 				}
-				setAtualizarUsuarioClick(); 
+				setAtualizarUsuarioClick();
 				//$("body").css("cursor", "default");
      		}
 		});
@@ -305,7 +305,7 @@ function carregarusuarios($page, $sync){
 
 }
 //carrega o html para criação de um usuario
-$("#criarUsuario").click(function(){		
+$("#criarUsuario").click(function(){
 		var token = $("input[name='_token']").val();
 		//alert(token);
 		$.get("/usuario/create", function(response)
@@ -319,7 +319,7 @@ $("#criarUsuario").click(function(){
 
 function ExcluirUsuario(btn)
 {
-	
+
 	var route = "/usuario/" + btn.id;
 	var token = $("input[name='_token']").val();
 	var page = $("li.active > span").text();
@@ -332,7 +332,7 @@ function ExcluirUsuario(btn)
 			success:function(){
 				carregarusuarios(page, true);
 				if($("#msg-success").length == 0){
-					$("#page-content").prepend("<div id=\"msg-success\" class=\"alert alert-success alert-dismissible\" role=\"alert\"> " + 
+					$("#page-content").prepend("<div id=\"msg-success\" class=\"alert alert-success alert-dismissible\" role=\"alert\"> " +
   									"<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>" +
 									"<strong id='text-success'>usuario excluído com sucesso!</strong></div>");
 					console.log("add msg-sucess");
@@ -351,7 +351,7 @@ function MostrarUsuario(btn){
 	if($("#msg-error").length > 0){
 		$("#msg-error").remove();
 	}
-	
+
 	console.log(btn.id);
 	var route = "/usuario/" + btn.id + "/edit";
 	$.get(route, function(response)
@@ -364,8 +364,8 @@ function MostrarUsuario(btn){
 			$('input[name=admin]').prop('checked', true);
 		else
 			$('input[name=admin]').prop('checked', false);
-	});	
-	
+	});
+
 }
 
 function setAtualizarUsuarioClick(){
@@ -386,9 +386,9 @@ function setAtualizarUsuarioClick(){
 				dataType: 'json',
 				data:dado,
 				success:function(){
-					carregarusuarios(page, true);					
+					carregarusuarios(page, true);
 					if($("#msg-success").length == 0){
-						$("#page-content").prepend("<div id=\"msg-success\" class=\"alert alert-success alert-dismissible\" role=\"alert\"> " + 
+						$("#page-content").prepend("<div id=\"msg-success\" class=\"alert alert-success alert-dismissible\" role=\"alert\"> " +
 	  									"<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>" +
 										"<strong id='text-success'>usuario atualizado com sucesso!</strong></div>");
 					}
@@ -396,7 +396,7 @@ function setAtualizarUsuarioClick(){
 						$("#msg-success").fadeOut();
 						$("#text-success").text("Usuario atualizado com sucesso!");
 						$("#msg-success").fadeIn();
-					}					
+					}
 				},
 				error: processaErrousuario,
 			});
@@ -407,7 +407,7 @@ function setAtualizarUsuarioClick(){
 function processaErrousuario(msg){
 	var divError = "<div id='msg-error' class='alert alert-danger alert-dismissible' role='alert'> " +
 					   "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button> " +
-					   "<strong>Opa! </strong>Houve algum problema.<br><br> " +   
+					   "<strong>Opa! </strong>Houve algum problema.<br><br> " +
 				   "<ul> ";
 	var $errors = [];
 	console.log(msg.responseJSON);
@@ -425,10 +425,10 @@ function processaErrousuario(msg){
 
 	$.each($errors, function(key, value){
 					divError = divError + "<li>" + value + "</li>";
-				  }				
+				  }
 	);
-	
-	divError = divError +"</ul></div>";			
+
+	divError = divError +"</ul></div>";
 	if($("#msg-error").length > 0){
 		$("#msg-error").remove();
 	}
@@ -437,7 +437,7 @@ function processaErrousuario(msg){
 		$(".modal-body").prepend(divError);
 	else
 		$("#page-content").prepend(divError);
-	
+
 	$("body").css("cursor", "default");
 }
 
@@ -448,7 +448,7 @@ function getusuarioFromModal(){
 function setRegistrarUsuarioClick(){
 	$("#registrarUsuario").click(
 		function()
-		{		
+		{
 			var dado = getusuarioFromModal();
 			var route = "/usuario";
 			var token = $("input[name='_token']").val();
@@ -467,7 +467,7 @@ function setRegistrarUsuarioClick(){
 						$("#msg-error").remove();
 					}
 					if($("#msg-success").length == 0){
-						$("#page-content").prepend("<div id=\"msg-success\" class=\"alert alert-success alert-dismissible\" role=\"alert\"> " + 
+						$("#page-content").prepend("<div id=\"msg-success\" class=\"alert alert-success alert-dismissible\" role=\"alert\"> " +
 	  									"<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>" +
 										"<strong id='text-success'>usuario criado com sucesso!</strong></div>");
 					}
@@ -486,7 +486,7 @@ function setRegistrarUsuarioClick(){
 				},
 				error: processaErrousuario,
 			});
-			
+
 		}
 	);
 }

@@ -21,12 +21,14 @@ Route::resource('usuario', 'UsuarioController');
 Route::resource('login', 'LoginController');
 Route::resource('genero', 'GeneroController');
 Route::resource('filme', 'MovieController');
+Route::resource('mail', 'MailController');
 Route::get('logout','LoginController@logout');
 
 Route::get('listarGeneros', 'GeneroController@listar');
 
 Route::get('prova', function (){
-	return "Hello Word";
+	'"$Midnight$"';
+	return env('MAIL_PASSWORD');//"Hello Word";
 });
 
 Route::get('nome/{nome}', function ($nome){

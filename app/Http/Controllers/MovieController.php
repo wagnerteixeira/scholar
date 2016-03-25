@@ -6,10 +6,29 @@ use Cinema\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Cinema\Movie;
 use Cinema\Genre;
+use Illuminate\Routing\Route;
+use Session;
+use Redirect;
 //use Carbon\Carbon;
 use Log;
 
 class MovieController extends Controller {
+
+
+	public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('admin', ['only' => ['create', 'edit']]); 
+        $this->beforeFilter('@find', ['only' => ['edit', 'update', 'destroy']]);
+    }
+
+    public function find(Route $route){
+        if (env("APP_DEBUG"))
+            log::info("params: ".serialize($route->parameters()));
+
+        $this->movie = Movie::find($route->getParameter('filme'));
+        if (env("APP_DEBUG"))
+            log::info("movieObject: ".$this->movie);
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -18,9 +37,8 @@ class MovieController extends Controller {
 	 */
 	public function index()
 	{
-		//return Carbon::now();
-		return (new \DateTime('now'))->format('Y_m_d_H_i_s');
-		//return "Estou no index";
+		$movies = Movie::Movies();
+		return view('filme.index', compact('movies'));
 	}
 
 	/**
@@ -43,7 +61,8 @@ class MovieController extends Controller {
 	public function store(Request $request)
 	{
 		Movie::create($request->all());
-		return "feito";
+		Session::flash('message', 'Filme criado com sucesso!');
+		return Redirect::to('/filme');
 	}
 
 	/**
@@ -65,7 +84,8 @@ class MovieController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$genres = Genre::lists('genre', 'id');
+		return view('filme.edit', ['movie' => $this->movie, 'genres'=> $genres]);
 	}
 
 	/**
@@ -74,9 +94,12 @@ class MovieController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request)
 	{
-		//
+		$this->movie->fill($request->all());
+		$this->movie->save();
+		Session::flash('message', 'Filme atualizado com sucesso!');
+		return Redirect::to('/filme');
 	}
 
 	/**
@@ -87,7 +110,10 @@ class MovieController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		\Storage::delete($this->movie->path);
+		$this->movie->delete();
+		Session::flash('message', 'Filme excluido com sucesso!');
+		return Redirect::to('/filme');
 	}
 
 }
