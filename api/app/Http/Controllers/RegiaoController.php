@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Regiao;
+
 class RegiaoController extends Controller
 {
     /**
@@ -15,7 +17,7 @@ class RegiaoController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Regiao::all());
     }
 
     /**
