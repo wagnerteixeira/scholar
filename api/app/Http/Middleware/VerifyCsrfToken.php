@@ -14,4 +14,19 @@ class VerifyCsrfToken extends BaseVerifier
     protected $except = [
         //
     ];
+
+
+    /**
+     * Determine if the session and input CSRF tokens match when the request is not a json.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function tokensMatch($request)
+    {
+        if ($request->wantsJson()) {
+            return true;
+        }
+        return parent::tokensMatch($request);
+    }
 }

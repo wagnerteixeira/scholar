@@ -15,6 +15,7 @@ class RegiaoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         return response()->json(Regiao::all());
@@ -25,9 +26,9 @@ class RegiaoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Regiao $regiao)
     {
-        //
+
     }
 
     /**
@@ -38,7 +39,8 @@ class RegiaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      Regiao::create($request->all());
+      return response()->json(['message' => 'OK']);
     }
 
     /**
@@ -49,7 +51,7 @@ class RegiaoController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json(Regiao::find($id));
     }
 
     /**
@@ -72,7 +74,14 @@ class RegiaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $regiao = Regiao::find($id);
+        if (!empty($regiao)){
+          $regiao->update($request->all());
+          return response()->json(['message' => 'OK']);
+        }
+        else {
+          return response()->json(['message' => 'N&atilde;o encontrado']);
+        }
     }
 
     /**
@@ -83,6 +92,13 @@ class RegiaoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $regiao = Regiao::find($id);
+        if (!empty($regiao)){
+          $regiao->delete();
+          return response()->json(['message' => 'OK']);
+        }
+        else {
+          return response()->json(['message' => 'N&atilde;o encontrado']);
+        }
     }
 }
