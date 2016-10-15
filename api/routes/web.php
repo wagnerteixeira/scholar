@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::resource('regiao', 'RegiaoController');
+Route::resource('teste', 'DateTesteController');
